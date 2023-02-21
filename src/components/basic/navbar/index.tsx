@@ -2,6 +2,7 @@ import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
 // import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { Currency, CurrencyAmount } from '@uniswap/sdk-core';
 import {useWeb3React} from "@web3-react/core";
+import RAMSES_LOGO from 'assets/images/logo.png';
 import {useTopic} from "hooks/useArena";
 import React, {useMemo} from "react";
 import {useParams} from "react-router-dom";
@@ -37,11 +38,11 @@ const Navbar = (props: NavbarProps) => {
 
   const renderConnector = () => {
     return active ? (
-        <button className={'btn-primary-inverted btn-default rounded-full'} >
+        <button className={'btn-primary btn-default rounded-2xl'} >
           {shortenAddress(account)}
         </button>
     ) : (
-      <button data-testid="wallet-connect" className={'btn-primary-inverted btn-default rounded-full'} onClick={toggleWalletModal}>
+      <button data-testid="wallet-connect" className={'btn-primary btn-default rounded-xl'} onClick={toggleWalletModal}>
         Connect Wallet
       </button>
     );
@@ -52,94 +53,29 @@ const Navbar = (props: NavbarProps) => {
 
   return (
     <div className={'mb-8'}>
-    <div className={`${(className) ? className : ''} absolute top-2 left-0 w-full max-w-screen-2xl px-24`}>
-
-    {/*  <Navbar*/}
-    {/*    fluid={true}*/}
-    {/*    rounded={true}*/}
-    {/*  >*/}
-    {/*    <Navbar.Brand href="https://flowbite.com/">*/}
-    {/*      <img*/}
-    {/*        src="https://flowbite.com/docs/images/logo.svg"*/}
-    {/*        className="mr-3 h-6 sm:h-9"*/}
-    {/*        alt="Flowbite Logo"*/}
-    {/*      />*/}
-    {/*      <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">*/}
-    {/*  Flowbite*/}
-    {/*</span>*/}
-    {/*    </Navbar.Brand>*/}
-    {/*    <div className="flex md:order-2">*/}
-    {/*      <Dropdown*/}
-    {/*        arrowIcon={false}*/}
-    {/*        inline={true}*/}
-    {/*        label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded={true}/>}*/}
-    {/*      >*/}
-    {/*        <Dropdown.Header>*/}
-    {/*    <span className="block text-sm">*/}
-    {/*      Bonnie Green*/}
-    {/*    </span>*/}
-    {/*          <span className="block truncate text-sm font-medium">*/}
-    {/*      name@flowbite.com*/}
-    {/*    </span>*/}
-    {/*        </Dropdown.Header>*/}
-    {/*        <Dropdown.Item>*/}
-    {/*          Dashboard*/}
-    {/*        </Dropdown.Item>*/}
-    {/*        <Dropdown.Item>*/}
-    {/*          Settings*/}
-    {/*        </Dropdown.Item>*/}
-    {/*        <Dropdown.Item>*/}
-    {/*          Earnings*/}
-    {/*        </Dropdown.Item>*/}
-    {/*        <Dropdown.Divider />*/}
-    {/*        <Dropdown.Item>*/}
-    {/*          Sign out*/}
-    {/*        </Dropdown.Item>*/}
-    {/*      </Dropdown>*/}
-    {/*      <Navbar.Toggle />*/}
-    {/*    </div>*/}
-    {/*    <Navbar.Collapse>*/}
-    {/*      <Navbar.Link*/}
-    {/*        href="/navbars"*/}
-    {/*        active={true}*/}
-    {/*      >*/}
-    {/*        Home*/}
-    {/*      </Navbar.Link>*/}
-    {/*      <Navbar.Link href="/navbars">*/}
-    {/*        About*/}
-    {/*      </Navbar.Link>*/}
-    {/*      <Navbar.Link href="/navbars">*/}
-    {/*        Services*/}
-    {/*      </Navbar.Link>*/}
-    {/*      <Navbar.Link href="/navbars">*/}
-    {/*        Pricing*/}
-    {/*      </Navbar.Link>*/}
-    {/*      <Navbar.Link href="/navbars">*/}
-    {/*        Contact*/}
-    {/*      </Navbar.Link>*/}
-    {/*    </Navbar.Collapse>*/}
-    {/*  </Navbar>*/}
-
+    <div className={`${(className) ? className : ''} absolute top-8 left-0 w-full max-w-screen-2xl px-24`}>
 
       <nav className="border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="container flex flex-wrap items-center justify-between mx-auto">
           <a href="#" className="flex items-center">
-            <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 mr-3 sm:h-10" alt="Flowbite Logo"/>
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">SONG DUST</span>
+            <img src={RAMSES_LOGO} className="h-6 mr-3 sm:h-10" alt="Ramses logo"/>
+            {/*<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">SONG DUST</span>*/}
           </a>
-          <button data-collapse-toggle="navbar-dropdown" type="button"
-                  className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg
-                  md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400
-                  dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                  aria-controls="navbar-dropdown" aria-expanded="false">
-            <span className="sr-only">Open main menu</span>
-            <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd"
-                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                    clipRule="evenodd"></path>
-            </svg>
-          </button>
+
+          <p className={'text-[#FAFAFA]'}>Liquidity Generation Event</p>
+          {/*<button data-collapse-toggle="navbar-dropdown" type="button"*/}
+          {/*        className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg*/}
+          {/*        md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400*/}
+          {/*        dark:hover:bg-gray-700 dark:focus:ring-gray-600"*/}
+          {/*        aria-controls="navbar-dropdown" aria-expanded="false">*/}
+          {/*  <span className="sr-only">Open main menu</span>*/}
+          {/*  <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"*/}
+          {/*       xmlns="http://www.w3.org/2000/svg">*/}
+          {/*    <path fillRule="evenodd"*/}
+          {/*          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"*/}
+          {/*          clipRule="evenodd"></path>*/}
+          {/*  </svg>*/}
+          {/*</button>*/}
           <div className="hidden w-full md:block md:w-auto" id="navbar-dropdown">
             <ul
               className="flex flex-col p-4 pr-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
@@ -150,10 +86,7 @@ const Navbar = (props: NavbarProps) => {
               {/*</li>*/}
               <li>
                 <div>{renderConnector()}</div>
-
-
               </li>
-
             </ul>
           </div>
         </div>
