@@ -62,7 +62,7 @@ const Navbar = (props: NavbarProps) => {
             {/*<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">SONG DUST</span>*/}
           </a>
 
-          <p className={'text-[#FAFAFA]'}>Liquidity Generation Event</p>
+          <p className={'text-gray100'}>Liquidity Generation Event</p>
           {/*<button data-collapse-toggle="navbar-dropdown" type="button"*/}
           {/*        className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg*/}
           {/*        md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400*/}

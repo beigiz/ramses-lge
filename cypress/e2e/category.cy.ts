@@ -9,7 +9,7 @@ import MulticallUniswapAbiHandler from '../utils/abihandlers/MulticallUniswapInt
 import { SongAbiHandler, SongAbiHandlerAllowAll } from '../utils/abihandlers/Song';
 import { IPFS_SERVER_URL, songBalance, songMeta } from '../utils/data';
 
-describe('Category', () => {
+describe('Index', () => {
   const categoryId = 0;
 
   beforeEach(() => {

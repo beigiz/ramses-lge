@@ -33,7 +33,7 @@ body
     @apply rounded-3xl py-7 px-6
 
   .header-card
-    @apply backdrop-blur-[3px] rounded-lg bg-original-black/50 px-8 py-6 w-full
+    @apply backdrop-blur-[3px] rounded-lg bg-original-black/50 px-10 py-6 w-full
 
   // BUTTON COLOR
 
@@ -87,19 +87,10 @@ body
     @apply bg-disabled-bg text-disabled-text hover:bg-disabled-bg cursor-default #{!important}
 
 
-
-
-//@layer utilities
-//  .primary-shadow-xl
-//    filter: drop-shadow(0px 8px 18px rgba(81, 88, 246, 0.15))
-
-
-.countdown-container
-  div
-    @apply flex justify-center items-center flex-col
-  p
-    &:first-child
-      @apply text-5xl font-bold
-    &:last-child
-      @apply text-label text-sm font-medium
-
+.read-more-link
+  img
+    @apply transition duration-200
+  &:hover
+    //@apply transition text-gray100
+    img
+      @apply translate-x-0.5 -translate-y-1 transform-gpu duration-200 transition opacity-100

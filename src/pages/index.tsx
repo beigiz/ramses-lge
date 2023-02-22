@@ -1,5 +1,7 @@
 
 import { useWeb3React } from '@web3-react/core';
+import EXTERNAL_LINK from 'assets/images/external-link.svg';
+import eth_LOGO from 'assets/images/simple-eth.svg';
 // import Input from 'components/basic/input';
 import Navbar from "components/basic/navbar";
 // import Modal from 'components/modal';
@@ -8,6 +10,7 @@ import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useToggleWalletModal } from 'state/application/hooks';
 import { shortenAddress } from 'utils/index';
+// import SingleChart from 'components/App/Swap/SingleChart'
 
 
 const style = {
@@ -25,7 +28,7 @@ const monoStyle = {
 } as React.CSSProperties;
 
 
-const Category = () => {
+const Index = () => {
   const { account } = useWeb3React();
   const active = useMemo(() => !!account, [account]);
 
@@ -68,25 +71,29 @@ const Category = () => {
   return (
     <div className={'px-32 py-24 bg-ramses min-h-screen bg-cover'}>
       <Navbar></Navbar>
-      <header className={'flex justify-between items-center gap-4'}>
+      <header className={'flex justify-between gap-4 '}>
         <div className={'header-card'}>
-          <p className={'text-3xl text-white mb-4'}>RAM <span className={'text-lg'}>Price</span></p>
+          <p className={'text-3xl text-white mb-4 font-bold'}>RAM <span className={'text-lg'}>Price</span></p>
           <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
         </div>
 
-        <div className={'header-card'}>
-          <p className={'text-3xl text-white mb-4'}>RAM <span className={'text-lg'}>Price</span></p>
-          <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
+        <div className={'header-card flex justify-between gap-4 items-center'}>
+          <div><p className={'text-3xl text-white mb-4 font-bold'}>ETH <span className={'text-lg'}>Raised</span></p>
+            <p className={'text-2xl text-primary font-semibold'}>120.07</p></div>
+          <img className={'w-12'} src={eth_LOGO} />
         </div>
 
         <div className={'header-card'}>
-          <p className={'text-3xl text-white mb-4'}>RAM <span className={'text-lg'}>Price</span></p>
-          <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
+          <p className={'text-2xl text-gray100 text-white mb-4 font-bold'}>Full documentation</p>
+          <a href={'google.com'} className={'read-more-link text-xl text-gray100/50'}>Read more <img className={'pl-1 pb-1 w-[14px] opacity-50 inline-block'} src={EXTERNAL_LINK} /></a>
         </div>
       </header>
+      <main>
+        {/*<SingleChart label={'xDEUS Ratio'} />*/}
+      </main>
       {/*<button className={'btn-primary-inverted'}>Hello Songdust!</button>*/}
     </div>
   );
 };
 
-export default Category; /* Rectangle 18 */
+export default Index; /* Rectangle 18 */

@@ -1,25 +1,25 @@
 import './App.css';
 
-import Category from 'pages/category';
+import Index from 'pages';
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import RoutePath, { getRoute, RouteParam } from './routes';
+import RoutePath from './routes';
 
 function App() {
   return (
     <Routes>
-      <Route path={RoutePath.CATEGORY} element={<Category />} />
-      <Route
-        path={RoutePath.LANDING}
-        element={
-          <Navigate
-            to={getRoute(RoutePath.CATEGORY, {
-              [RouteParam.CATEGORY_ID]: '2',
-            })}
-          />
-        }
-      />
+      <Route path={RoutePath.LANDING} element={<Index />} />
+      {/*<Route*/}
+      {/*  path={RoutePath.LANDING}*/}
+      {/*  element={*/}
+      {/*    <Navigate*/}
+      {/*      to={getRoute(RoutePath.LANDING, {*/}
+      {/*        [RouteParam.CATEGORY_ID]: '2',*/}
+      {/*      })}*/}
+      {/*    />*/}
+      {/*  }*/}
+      {/*/>*/}
     </Routes>
   );
 }
