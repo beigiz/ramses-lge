@@ -18,6 +18,7 @@ module.exports = {
         input: '#EFF3F8',
         label: '#565656',
         black: '#2E3133',
+        'original-black': '#000',
         chips: '#5EBAB0',
         gray: '#BFBFBF',
         gray30: '#CDD5DB',

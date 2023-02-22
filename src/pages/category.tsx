@@ -66,9 +66,24 @@ const Category = () => {
 
   // @ts-ignore
   return (
-    <div className={'px-24 py-24 bg-ramses'}>
+    <div className={'px-32 py-24 bg-ramses min-h-screen bg-cover'}>
       <Navbar></Navbar>
+      <header className={'flex justify-between items-center gap-4'}>
+        <div className={'header-card'}>
+          <p className={'text-3xl text-white mb-4'}>RAM <span className={'text-lg'}>Price</span></p>
+          <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
+        </div>
 
+        <div className={'header-card'}>
+          <p className={'text-3xl text-white mb-4'}>RAM <span className={'text-lg'}>Price</span></p>
+          <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
+        </div>
+
+        <div className={'header-card'}>
+          <p className={'text-3xl text-white mb-4'}>RAM <span className={'text-lg'}>Price</span></p>
+          <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
+        </div>
+      </header>
       {/*<button className={'btn-primary-inverted'}>Hello Songdust!</button>*/}
     </div>
   );

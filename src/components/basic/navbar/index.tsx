@@ -38,7 +38,7 @@ const Navbar = (props: NavbarProps) => {
 
   const renderConnector = () => {
     return active ? (
-        <button className={'btn-primary btn-default rounded-2xl'} >
+        <button className={'btn-primary btn-default rounded-xl'} >
           {shortenAddress(account)}
         </button>
     ) : (
@@ -53,10 +53,10 @@ const Navbar = (props: NavbarProps) => {
 
   return (
     <div className={'mb-8'}>
-    <div className={`${(className) ? className : ''} absolute top-8 left-0 w-full max-w-screen-2xl px-24`}>
+    <div className={`${(className) ? className : ''} absolute top-8 left-0 w-full max-w-screen-2xl px-32`}>
 
       <nav className="border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-        <div className="container flex flex-wrap items-center justify-between mx-auto">
+        <div className=" flex flex-wrap items-center justify-between mx-0">
           <a href="#" className="flex items-center">
             <img src={RAMSES_LOGO} className="h-6 mr-3 sm:h-10" alt="Ramses logo"/>
             {/*<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">SONG DUST</span>*/}
