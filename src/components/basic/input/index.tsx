@@ -1,6 +1,7 @@
 import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { Currency, CurrencyAmount } from '@uniswap/sdk-core';
+import eth_gray from 'assets/images/eht-gray.svg';
 import React, { useCallback } from 'react';
 import { formatCurrencyAmount } from 'utils/formatCurrencyAmount';
 import { maxAmountSpend } from 'utils/maxAmountSpend';
@@ -14,6 +15,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   toggle?: boolean;
   submitLabel?: string;
   inputType?: string;
+  label?: string;
   onPress?: React.MouseEventHandler<HTMLDivElement>
 }
 
@@ -33,7 +35,7 @@ const Input = (props: InputProps) => {
     inputType: 'default',
   };
 
-  const { currencyBalance, placeholder, onUserInput, icon, className, toggle, submitLabel, inputType, onPress } = props;
+  const { currencyBalance, placeholder, onUserInput, icon, className, toggle, submitLabel, inputType, onPress, label } = props;
 
   const maxAmountInput = maxAmountSpend(currencyBalance);
   const handleMax = useCallback(() => {
@@ -41,20 +43,40 @@ const Input = (props: InputProps) => {
   }, [maxAmountInput, onUserInput]);
   return (
     <div onClick={onPress} className={`${(className) ? className : ''}`}>
-      <div className={`flex items-center gap-3 border-light-gray bg-white border-2 rounded-xl px-4 
-      h-14 ${toggle ? 'justify-center' : ''}`}>
-        <div className={'input-icon'}>
-          { icon && (<FontAwesomeIcon fontSize={24} icon={icon} style={style} />)}
-        </div>
+      <div className={` bg-gray00 rounded-xl px-4 
+       ${toggle ? 'justify-center' : ''}`}>
+        {/*<div className={'input-icon'}>*/}
+        {/*  { icon && (<FontAwesomeIcon fontSize={24} icon={icon} style={style} />)}*/}
+        {/*</div>*/}
         {/*todo remove focus on input*/}
-        {(inputType == 'submit') ? (<button className={'text-lg'}>{submitLabel}</button>) : (<input
-          type={props.type}
-          placeholder={placeholder}
-          className={'focus:outline-0 w-full text-lg'}
-          onChange={(e) => onUserInput(e.target.value)}
-          value={props.value || ''}
-          data-testid={props.testid && `${props.testid}-input`}
-        ></input>)}
+        <div className={'flex justify-between'}>
+          <label>{label}</label>
+          <div className={'max-container flex gap-2'}>
+            <p>0</p>
+            <button
+              onClick={handleMax}
+              className={'btn-primary-inverted rounded-md px-2 text-xs font-semibold'}
+              data-testid={props.testid && `${props.testid}-max`}
+            >
+              Max
+            </button>
+          </div>
+        </div>
+        <div>
+          <input
+            type="number"
+            placeholder={placeholder}
+            className={'bg-gray00 text-white !focus:outline-0 !outline-0 !border-0 focus:ring-0 !focus:shadow-none shadow-none w-full text-lg'}
+            onChange={(e) => onUserInput(e.target.value)}
+            value={props.value}
+            data-testid={props.testid && `${props.testid}-input`}
+          ></input>
+          <div>
+            <img src={eth_gray} />
+            <p>ETH</p>
+          </div>
+        </div>
+
         {/*<div className={'input-token'}></div>*/}
       </div>
       <footer className={'mt-2'}>

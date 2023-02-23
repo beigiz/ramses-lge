@@ -3,7 +3,6 @@ import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import { Currency, CurrencyAmount } from '@uniswap/sdk-core';
 import {useWeb3React} from "@web3-react/core";
 import RAMSES_LOGO from 'assets/images/logo.png';
-import {useTopic} from "hooks/useArena";
 import React, {useMemo} from "react";
 import {useParams} from "react-router-dom";
 import {useToggleWalletModal} from "state/application/hooks";
@@ -33,7 +32,7 @@ const Navbar = (props: NavbarProps) => {
   const active = useMemo(() => !!account, [account]);
 
   const { id: topicId } = useParams();
-  const { choices, loaded } = useTopic(Number(topicId));
+  // const { choices, loaded } = useTopic(Number(topicId));
   const toggleWalletModal = useToggleWalletModal();
 
   const renderConnector = () => {
