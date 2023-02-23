@@ -43,38 +43,44 @@ const Input = (props: InputProps) => {
   }, [maxAmountInput, onUserInput]);
   return (
     <div onClick={onPress} className={`${(className) ? className : ''}`}>
-      <div className={` bg-gray00 rounded-xl px-4 
+      <div className={` bg-gray00 rounded-xl px-4 py-4 flex justify-center
        ${toggle ? 'justify-center' : ''}`}>
         {/*<div className={'input-icon'}>*/}
         {/*  { icon && (<FontAwesomeIcon fontSize={24} icon={icon} style={style} />)}*/}
         {/*</div>*/}
         {/*todo remove focus on input*/}
+        <input
+          type="number"
+          placeholder={placeholder}
+          className={'bg-gray00 text-white !focus:outline-0 !outline-0 !border-0 focus:ring-0 !focus:shadow-none shadow-none w-full text-2xl'}
+          onChange={(e) => onUserInput(e.target.value)}
+          value={props.value}
+          data-testid={props.testid && `${props.testid}-input`}
+        ></input>
+        <div className={'flex flex-col'}>
         <div className={'flex justify-between'}>
-          <label>{label}</label>
-          <div className={'max-container flex gap-2'}>
-            <p>0</p>
+
+          {/*<label>{label}</label>*/}
+          <div className={'max-container flex gap-2 items-center'}>
+            <p className={'text-white'}>0</p>
+            <div>
             <button
               onClick={handleMax}
-              className={'btn-primary-inverted rounded-md px-2 text-xs font-semibold'}
+              className={'btn-primary-inverted rounded-md px-2 py-1 text-xs font-semibold'}
               data-testid={props.testid && `${props.testid}-max`}
             >
               Max
             </button>
+            </div>
           </div>
         </div>
-        <div>
-          <input
-            type="number"
-            placeholder={placeholder}
-            className={'bg-gray00 text-white !focus:outline-0 !outline-0 !border-0 focus:ring-0 !focus:shadow-none shadow-none w-full text-lg'}
-            onChange={(e) => onUserInput(e.target.value)}
-            value={props.value}
-            data-testid={props.testid && `${props.testid}-input`}
-          ></input>
-          <div>
-            <img src={eth_gray} />
-            <p>ETH</p>
+        <div className={'input-token-label mt-4'}>
+          <div className={'flex justify-end gap-2 '}>
+            <p className={'text-white text-2xl text-gray100/50'}>ETH</p>
+            <img className={'w-4'} src={eth_gray} />
           </div>
+        </div>
+
         </div>
 
         {/*<div className={'input-token'}></div>*/}
