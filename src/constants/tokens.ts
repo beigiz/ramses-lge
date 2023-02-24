@@ -1,11 +1,6 @@
 import { Ether, NativeCurrency, Token, WETH9 } from '@uniswap/sdk-core';
 
-import { SONG_ADDRESS } from './addresses';
 import { SupportedChainId } from './chains';
-
-export const SONG: { [chainId: number]: Token } = {
-  [SupportedChainId.GOERLI]: new Token(SupportedChainId.GOERLI, SONG_ADDRESS[5], 18, 'UNI', 'Uniswap'),
-};
 
 export const USDC_MAINNET = new Token(
   SupportedChainId.MAINNET,
@@ -131,13 +126,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
 };
 
 export class ExtendedEther extends Ether {
+  private static _cachedExtendedEther: { [chainId: number]: NativeCurrency } = {};
+
   public get wrapped(): Token {
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId];
     if (wrapped) return wrapped;
     throw new Error('Unsupported chain ID');
   }
-
-  private static _cachedExtendedEther: { [chainId: number]: NativeCurrency } = {};
 
   public static onChain(chainId: number): ExtendedEther {
     return this._cachedExtendedEther[chainId] ?? (this._cachedExtendedEther[chainId] = new ExtendedEther(chainId));

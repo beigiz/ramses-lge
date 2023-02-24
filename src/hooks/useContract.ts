@@ -7,13 +7,11 @@ import MulticallJson from '@uniswap/v3-periphery/artifacts/contracts/lens/Uniswa
 import { useWeb3React } from '@web3-react/core';
 import ERC20_ABI from 'abis/erc20.json';
 import ERC20_BYTES32_ABI from 'abis/erc20_bytes32.json';
-import SONGADAY_ABI from 'abis/songaday.json';
-import { Erc20, Songaday } from 'abis/types';
-import { ARENA_ADDRESS, MULTICALL_ADDRESS, SONGADAY_CONTRACT_ADDRESS } from 'constants/addresses';
+import { Erc20 } from 'abis/types';
+import { MULTICALL_ADDRESS } from 'constants/addresses';
 import { SupportedChainId } from 'constants/chains';
 import { Providers } from 'constants/providers';
 import { useMemo } from 'react';
-import { Arena } from 'types/contracts/Arena';
 
 import { UniswapInterfaceMulticall } from '../abis/types/uniswap';
 
@@ -71,14 +69,6 @@ export function getContract(
   }
 
   return new Contract(address, ABI, providerOrSigner) as any;
-}
-
-export function useArenaContract() {
-  return useContract<Arena>(ARENA_ADDRESS, ArenaABI, true);
-}
-
-export function useSongadayContract() {
-  return useContract<Songaday>(SONGADAY_CONTRACT_ADDRESS, SONGADAY_ABI, true, SupportedChainId.MAINNET);
 }
 
 export function useInterfaceMulticall() {
