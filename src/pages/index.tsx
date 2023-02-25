@@ -72,7 +72,7 @@ const Index = () => {
   return (
     <div className={'px-32 py-24 bg-ramses min-h-screen bg-cover'}>
       <Navbar></Navbar>
-      <header className={'flex justify-between gap-4 '}>
+      <header className={'flex justify-between gap-4'}>
         <div className={'home-card'}>
           <p className={'text-3xl text-white mb-4 font-bold'}>RAM <span className={'text-lg'}>Price</span></p>
           <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
@@ -93,8 +93,16 @@ const Index = () => {
         <div className={'home-card flex justify-center items-center'}>
           <p className={'text-2xl text-white'}>CHART HERE</p>
         </div>
-        <div className={'home-card'}>
-          <Input  placeholder={'0.0'} onUserInput={()=>{}}></Input>
+        <div className={'home-card py-10'}>
+          <Input value={'0'}  placeholder={'0.0'} onUserInput={()=>{}}></Input>
+          <button
+            className={'btn-primary btn-large mt-16 w-full'}
+            onClick={() => {
+
+            }}
+          >
+            Add ETH Collateral
+          </button>
         </div>
         {/*<SingleChart label={'xDEUS Ratio'} />*/}
       </main>

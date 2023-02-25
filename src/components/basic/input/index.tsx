@@ -66,7 +66,7 @@ const Input = (props: InputProps) => {
             <div>
             <button
               onClick={handleMax}
-              className={'btn-primary-inverted rounded-md px-2 py-1 text-xs font-semibold'}
+              className={'btn-primary-inverted !bg-[#212020] rounded-md px-2 py-1 text-xs font-semibold'}
               data-testid={props.testid && `${props.testid}-max`}
             >
               Max
