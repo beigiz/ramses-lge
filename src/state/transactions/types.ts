@@ -30,18 +30,7 @@ export interface ApproveTransactionInfo extends BaseTransactionInfo {
   spender: string;
 }
 
-export interface VoteTransactionInfo extends BaseTransactionInfo {
-  type: TransactionType.VOTE;
-  rawAmount: string;
-  choiceTitle: string;
-}
-
-export interface AddChoiceTransactionInfo extends BaseTransactionInfo {
-  type: TransactionType.ADD_CHOICE;
-  choiceTitle: string;
-}
-
-export type TransactionInfo = ApproveTransactionInfo | VoteTransactionInfo | AddChoiceTransactionInfo;
+export type TransactionInfo = ApproveTransactionInfo;
 
 export interface TransactionDetails {
   hash: string;

@@ -1,18 +1,22 @@
-
+import { BigNumber } from '@ethersproject/bignumber';
+import { CurrencyAmount } from '@uniswap/sdk-core';
 import { useWeb3React } from '@web3-react/core';
 import EXTERNAL_LINK from 'assets/images/external-link.svg';
 import eth_LOGO from 'assets/images/simple-eth.svg';
-import Input from "components/basic/input";
+import Input from 'components/basic/input';
 // import Input from 'components/basic/input';
-import Navbar from "components/basic/navbar";
+import Navbar from 'components/basic/navbar';
+import { RAMSES_LGE_ADDRESS } from 'constants/addresses';
+import { SupportedChainId } from 'constants/chains';
+import { RPC_PROVIDERS } from 'constants/networks';
+import { useNativeCurrencyOnChain } from 'hooks/useNativeCurrency';
+import JSBI from 'jsbi';
 // import Modal from 'components/modal';
 // import { useTopic } from 'hooks/useArena';
-import React, { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useToggleWalletModal } from 'state/application/hooks';
 import { shortenAddress } from 'utils/index';
 // import SingleChart from 'components/App/Swap/SingleChart'
-
 
 const style = {
   '--fa-primary-color': '#353535',
@@ -28,26 +32,10 @@ const monoStyle = {
   '--fa-secondary-opacity': 0.4,
 } as React.CSSProperties;
 
-
 const Index = () => {
   const { account } = useWeb3React();
   const active = useMemo(() => !!account, [account]);
 
-
-
-  const [voteSongModalOpen, setOpenVoteSongModalOpen] = useState(false);
-
-  function openVoteSongModal() {
-    setOpenVoteSongModalOpen(true);
-  }
-
-  function closeVoteSongModal() {
-    setOpenVoteSongModalOpen(false);
-  }
-
-
-  const { id: topicId } = useParams();
-  // const { choices, loaded } = useTopic(Number(topicId));
   const toggleWalletModal = useToggleWalletModal();
 
   const renderConnector = () => {
@@ -62,11 +50,28 @@ const Index = () => {
 
   const [defaultView, setDefaultView] = useState(true);
 
-  function toggleView(){
-    setDefaultView(!defaultView)
+  function toggleView() {
+    setDefaultView(!defaultView);
   }
 
+  const { provider } = useWeb3React();
+  const [ramsesLgeBalance, setRamsesLgeBalance] = useState<BigNumber | null>(null);
 
+  useEffect(() => {
+    RPC_PROVIDERS[SupportedChainId.ARBITRUM_ONE]
+      .getBalance(RAMSES_LGE_ADDRESS[SupportedChainId.ARBITRUM_ONE])
+      .then((balance) => {
+        setRamsesLgeBalance(balance);
+      });
+  }, [provider]);
+
+  const nativeCurrency = useNativeCurrencyOnChain(Number(SupportedChainId.ARBITRUM_ONE));
+
+  const ramsesLgeBalanceAmount = useMemo(() => {
+    if (!ramsesLgeBalance) return null;
+    const amount = JSBI.BigInt(ramsesLgeBalance.toString());
+    return CurrencyAmount.fromRawAmount(nativeCurrency, amount);
+  }, [nativeCurrency, ramsesLgeBalance]);
 
   // @ts-ignore
   return (
@@ -74,25 +79,36 @@ const Index = () => {
       <Navbar></Navbar>
       <header className={'flex justify-between gap-4'}>
         <div className={'home-card'}>
-          <p className={'text-3xl text-white mb-4 font-bold'}>RAM <span className={'text-lg'}>Price</span></p>
+          <p className={'text-3xl text-white mb-4 font-bold'}>
+            RAM <span className={'text-lg'}>Price</span>
+          </p>
           <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
         </div>
 
         <div className={'home-card flex justify-between gap-4 items-center'}>
-          <div><p className={'text-3xl text-white mb-4 font-bold'}>ETH <span className={'text-lg'}>Raised</span></p>
-            <p className={'text-2xl text-primary font-semibold'}>120.07</p></div>
+          <div>
+            <p className={'text-3xl text-white mb-4 font-bold'}>
+              ETH <span className={'text-lg'}>Raised</span>
+            </p>
+            <p className={'text-2xl text-primary font-semibold'}>
+              {ramsesLgeBalanceAmount ? ramsesLgeBalanceAmount.toSignificant(5) : '...'}
+            </p>
+          </div>
           <img className={'w-12'} src={eth_LOGO} />
         </div>
 
         <div className={'home-card'}>
           <p className={'text-2xl text-gray100 text-white mb-4 font-bold'}>Full documentation</p>
-          <a href={'google.com'} className={'read-more-link text-xl text-gray100/50'}>Read more <img className={'pl-1 pb-1 w-[14px] opacity-50 inline-block'} src={EXTERNAL_LINK} /></a>
+          <a href={'google.com'} className={'read-more-link text-xl text-gray100/50'}>
+            Read more <img className={'pl-1 pb-1 w-[14px] opacity-50 inline-block'} src={EXTERNAL_LINK} />
+          </a>
         </div>
       </header>
       <main className={'flex gap-4 mt-8'}>
         <div className={'home-card flex justify-center items-center'}>
           <p className={'text-2xl text-white'}>CHART HERE</p>
         </div>
+
         <div className={'home-card py-10'}>
           <Input value={'0'}  placeholder={'0.0'} onUserInput={()=>{}}></Input>
           <button
@@ -103,6 +119,7 @@ const Index = () => {
           >
             Add ETH Collateral
           </button>
+
         </div>
         {/*<SingleChart label={'xDEUS Ratio'} />*/}
       </main>

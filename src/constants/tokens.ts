@@ -1,11 +1,6 @@
 import { Ether, NativeCurrency, Token, WETH9 } from '@uniswap/sdk-core';
 
-import { SONG_ADDRESS } from './addresses';
 import { SupportedChainId } from './chains';
-
-export const SONG: { [chainId: number]: Token } = {
-  [SupportedChainId.GOERLI]: new Token(SupportedChainId.GOERLI, SONG_ADDRESS[5], 18, 'UNI', 'Uniswap'),
-};
 
 export const USDC_MAINNET = new Token(
   SupportedChainId.MAINNET,
@@ -14,15 +9,8 @@ export const USDC_MAINNET = new Token(
   'USDC',
   'USD//C',
 );
-export const USDC_RINKEBY = new Token(
-  SupportedChainId.RINKEBY,
-  '0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b',
-  6,
-  'tUSDC',
-  'test USD//C',
-);
 export const USDC_GOERLI = new Token(
-  SupportedChainId.GOERLI,
+  SupportedChainId.ARBITRUM_ONE,
   '0x07865c6e87b9f70255377e024ace6630c1eaa37f',
   6,
   'USDC',
@@ -45,8 +33,7 @@ export const DAI = new Token(
 
 export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.MAINNET]: USDC_MAINNET,
-  [SupportedChainId.GOERLI]: USDC_GOERLI,
-  [SupportedChainId.RINKEBY]: USDC_RINKEBY,
+  [SupportedChainId.ARBITRUM_ONE]: USDC_GOERLI,
 };
 export const USDT = new Token(
   SupportedChainId.MAINNET,
@@ -131,13 +118,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
 };
 
 export class ExtendedEther extends Ether {
+  private static _cachedExtendedEther: { [chainId: number]: NativeCurrency } = {};
+
   public get wrapped(): Token {
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId];
     if (wrapped) return wrapped;
     throw new Error('Unsupported chain ID');
   }
-
-  private static _cachedExtendedEther: { [chainId: number]: NativeCurrency } = {};
 
   public static onChain(chainId: number): ExtendedEther {
     return this._cachedExtendedEther[chainId] ?? (this._cachedExtendedEther[chainId] = new ExtendedEther(chainId));
@@ -162,7 +149,6 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
 export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in SupportedChainId]?: string } } = {
   USDC: {
     [SupportedChainId.MAINNET]: USDC_MAINNET.address,
-    [SupportedChainId.GOERLI]: USDC_GOERLI.address,
-    [SupportedChainId.RINKEBY]: USDC_RINKEBY.address,
+    [SupportedChainId.ARBITRUM_ONE]: USDC_GOERLI.address,
   },
 };
