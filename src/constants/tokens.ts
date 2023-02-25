@@ -1,6 +1,26 @@
 import { Ether, NativeCurrency, Token, WETH9 } from '@uniswap/sdk-core';
+import { COLLATERAL_TOKEN_ADDRESS, DISTRIBUTION_TOKEN_ADDRESS } from 'constants/addresses';
 
 import { SupportedChainId } from './chains';
+
+export const COLLATERAL_TOKEN: { [chainId: number]: Token } = {
+  [SupportedChainId.ARBITRUM_ONE]: new Token(
+    SupportedChainId.ARBITRUM_ONE,
+    COLLATERAL_TOKEN_ADDRESS[SupportedChainId.ARBITRUM_ONE],
+    18,
+    'WETH',
+    'Wrapped Ether',
+  ),
+};
+export const DISTRIBUTION_TOKEN: { [chainId: number]: Token } = {
+  [SupportedChainId.ARBITRUM_ONE]: new Token(
+    SupportedChainId.ARBITRUM_ONE,
+    DISTRIBUTION_TOKEN_ADDRESS[SupportedChainId.ARBITRUM_ONE],
+    18,
+    'RAM',
+    'Ramses',
+  ),
+};
 
 export const USDC_MAINNET = new Token(
   SupportedChainId.MAINNET,

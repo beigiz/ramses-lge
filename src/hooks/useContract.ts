@@ -1,4 +1,3 @@
-import ArenaJson from '@attentionstreams/contracts/artifacts/contracts/main/Arena.sol/Arena.json';
 import { isAddress } from '@ethersproject/address';
 import { AddressZero } from '@ethersproject/constants';
 import { Contract } from '@ethersproject/contracts';
@@ -7,15 +6,16 @@ import MulticallJson from '@uniswap/v3-periphery/artifacts/contracts/lens/Uniswa
 import { useWeb3React } from '@web3-react/core';
 import ERC20_ABI from 'abis/erc20.json';
 import ERC20_BYTES32_ABI from 'abis/erc20_bytes32.json';
+import RAMSES_LGE_ABI from 'abis/RamsesLge.json';
 import { Erc20 } from 'abis/types';
-import { MULTICALL_ADDRESS } from 'constants/addresses';
+import { RamsesLge } from 'abis/types/RamsesLge';
+import { MULTICALL_ADDRESS, RAMSES_LGE_ADDRESS } from 'constants/addresses';
 import { SupportedChainId } from 'constants/chains';
 import { Providers } from 'constants/providers';
 import { useMemo } from 'react';
 
 import { UniswapInterfaceMulticall } from '../abis/types/uniswap';
 
-const { abi: ArenaABI } = ArenaJson;
 const { abi: MulticallABI } = MulticallJson;
 
 // returns null on errors
@@ -73,6 +73,10 @@ export function getContract(
 
 export function useInterfaceMulticall() {
   return useContract<UniswapInterfaceMulticall>(MULTICALL_ADDRESS, MulticallABI, false) as UniswapInterfaceMulticall;
+}
+
+export function useRamsesLgeContract() {
+  return useContract<RamsesLge>(RAMSES_LGE_ADDRESS, RAMSES_LGE_ABI, false);
 }
 
 export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: boolean) {

@@ -1,4 +1,3 @@
-import { BigNumber } from '@ethersproject/bignumber';
 import { CurrencyAmount } from '@uniswap/sdk-core';
 import { useWeb3React } from '@web3-react/core';
 import EXTERNAL_LINK from 'assets/images/external-link.svg';
@@ -6,14 +5,14 @@ import eth_LOGO from 'assets/images/simple-eth.svg';
 import Input from 'components/basic/input';
 // import Input from 'components/basic/input';
 import Navbar from 'components/basic/navbar';
-import { RAMSES_LGE_ADDRESS } from 'constants/addresses';
 import { SupportedChainId } from 'constants/chains';
-import { RPC_PROVIDERS } from 'constants/networks';
-import { useNativeCurrencyOnChain } from 'hooks/useNativeCurrency';
+import { COLLATERAL_TOKEN } from 'constants/tokens';
+import { useEthereumPrice } from 'hooks/useEthereumPrice';
+import { useRamsesLge } from 'hooks/useRamsesLge';
 import JSBI from 'jsbi';
 // import Modal from 'components/modal';
 // import { useTopic } from 'hooks/useArena';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useToggleWalletModal } from 'state/application/hooks';
 import { shortenAddress } from 'utils/index';
 // import SingleChart from 'components/App/Swap/SingleChart'
@@ -55,23 +54,19 @@ const Index = () => {
   }
 
   const { provider } = useWeb3React();
-  const [ramsesLgeBalance, setRamsesLgeBalance] = useState<BigNumber | null>(null);
-
-  useEffect(() => {
-    RPC_PROVIDERS[SupportedChainId.ARBITRUM_ONE]
-      .getBalance(RAMSES_LGE_ADDRESS[SupportedChainId.ARBITRUM_ONE])
-      .then((balance) => {
-        setRamsesLgeBalance(balance);
-      });
-  }, [provider]);
-
-  const nativeCurrency = useNativeCurrencyOnChain(Number(SupportedChainId.ARBITRUM_ONE));
+  const etherPrice = useEthereumPrice();
+  const { totalRaised } = useRamsesLge();
 
   const ramsesLgeBalanceAmount = useMemo(() => {
-    if (!ramsesLgeBalance) return null;
-    const amount = JSBI.BigInt(ramsesLgeBalance.toString());
-    return CurrencyAmount.fromRawAmount(nativeCurrency, amount);
-  }, [nativeCurrency, ramsesLgeBalance]);
+    if (!totalRaised) return null;
+    const amount = JSBI.BigInt(totalRaised.toString());
+    return CurrencyAmount.fromRawAmount(COLLATERAL_TOKEN[SupportedChainId.ARBITRUM_ONE], amount);
+  }, [totalRaised]);
+
+  const ramPrice = useMemo(() => {
+    if (!ramsesLgeBalanceAmount || !etherPrice) return null;
+    return '$' + (Number(ramsesLgeBalanceAmount.toExact()) * etherPrice) / 10000000;
+  }, [etherPrice, ramsesLgeBalanceAmount]);
 
   // @ts-ignore
   return (
@@ -82,7 +77,7 @@ const Index = () => {
           <p className={'text-3xl text-white mb-4 font-bold'}>
             RAM <span className={'text-lg'}>Price</span>
           </p>
-          <p className={'text-2xl text-primary font-semibold'}>$1.00</p>
+          <p className={'text-2xl text-primary font-semibold'}>{ramPrice || '...'}</p>
         </div>
 
         <div className={'home-card flex justify-between gap-4 items-center'}>
@@ -110,16 +105,10 @@ const Index = () => {
         </div>
 
         <div className={'home-card py-10'}>
-          <Input value={'0'}  placeholder={'0.0'} onUserInput={()=>{}}></Input>
-          <button
-            className={'btn-primary btn-large mt-16 w-full'}
-            onClick={() => {
-
-            }}
-          >
+          <Input value={'0'} placeholder={'0.0'} onUserInput={() => {}}></Input>
+          <button className={'btn-primary btn-large mt-16 w-full'} onClick={() => {}}>
             Add ETH Collateral
           </button>
-
         </div>
         {/*<SingleChart label={'xDEUS Ratio'} />*/}
       </main>
